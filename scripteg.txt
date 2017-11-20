@@ -1,0 +1,40 @@
+function ConfirmBook(){
+                //alert('Helolo');
+                var salut;
+                var adult=document.getElementById("Hadult").value;
+                var child=document.getElementById("Hchild").value;
+                if(adult==0 && child==0){
+                    alert('Both adult and child cannot be zero');
+                }
+                var name=document.getElementById("Hname").value;
+                var email=document.getElementById("Hemail").value;
+                var c=document.getElementById("Hclass");
+                var clas=c.options[c.selectedIndex].value;
+                //alert(clas);
+                
+                adult=parseInt(adult);
+                child=parseInt(child);
+                var cost=(adult+child)*clas;
+               //alert(cost);
+                var s=document.getElementsByName("Sradio");
+                var l=s.length;
+                for(var i=0;i<l;i++){
+                    if(s[i].checked){
+                        salut=s[i].value;
+                    }
+                }
+                var dateshow=new Date();
+                dateshow=document.getElementById("Hdate").value;
+                
+                alert(salut+' '+name+'. Please pay Rs '+cost+' on '+dateshow);
+}
+
+function showdate(){
+    var curr=new Date();
+    var dd= curr.getDate();
+    var mm=curr.getMonth()+1;
+    var yyyy=curr.getFullYear();
+    curr=yyyy+'-'+mm+'-'+dd;
+    document.getElementById("Hdate").setAttribute("min",curr);
+    
+}
