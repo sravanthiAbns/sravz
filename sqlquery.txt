@@ -1,0 +1,35 @@
+use training;
+
+Create Table Project(
+ProjID numeric primary key identity(100,1),
+ProjName varchar(100),
+ProjLocation varchar(100),
+ProjBudget float,
+DateOfStart date
+);
+
+create PROCEDURE addProjdetails
+	(
+	
+	@projName varchar(100),
+	@projloaction varchar(100),
+	@projbudget float,
+	@dateofstrt date
+	)
+	
+AS
+	insert into Project(ProjName,ProjLocation,ProjBudget,DateOfStart) Values(@projName,@projloaction,@projbudget,@dateofstrt)
+	RETURN
+
+	 exec addProjdetails 'sr','de',27000,'12/3/1234'
+
+
+	 create PROCEDURE getproj
+(
+@projid int
+)
+as
+select * from Project where ProjID = @projid
+
+exec getproj 1
+
