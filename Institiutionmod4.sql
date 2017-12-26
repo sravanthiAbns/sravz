@@ -10,6 +10,7 @@ CourseID int primary key,
 CourseName varchar(100),
 )
 
+
 create table Students(
 StudentID int primary key identity(100,1),
 StudentName varchar(100),
@@ -36,26 +37,22 @@ select City from Institute
 	RETURN
 
 
-	
-	alter PROCEDURE addcustomer
+	alter PROCEDURE addstud
 	(
 	
 	@studName varchar(100),
 	@dob date,
-	@city varchar(100),
-	@coursename varchar(100),
 	@admisndtae date,
 	@corseId int
 
 	)
-	
+		
 AS
 	insert into Students(StudentName,DOB) Values(@studName,@dob)
-	insert into Course(CourseID,CourseName) Values(@corseId,@coursename)
 	
 	declare @studId int;
-	select @studId = IDENT_CURRENT('Admission')
-	insert into Admission(AdmissionDate,CourseID)
-	values(@admisndtae,@corseId)
+	select @studId=max(StudentID) from Students;
+	insert into Admission
+	values(@admisndtae,@studID,@corseId)
 
-	
+	Exec addstud 's kf', "1/1/2017", "1/1/2017", 7;
