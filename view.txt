@@ -1,0 +1,157 @@
+@model DbFirstApproachASP.Net.Models.Institute
+
+@{
+    ViewBag.Title = "CreateInsti";
+}
+
+<h2>CreateInsti</h2>
+
+@using (Html.BeginForm())
+{
+    @Html.ActionLink("back to list", "Displayrest")
+    <table border="1">
+        <tr>
+            <td>
+                @Html.DisplayNameFor(x => x.InstituteID)
+            </td>
+            <td>
+                @Html.TextBoxFor(x => x.InstituteID)
+            </td>           
+        </tr>
+
+        <tr>
+            <td>
+                @Html.DisplayNameFor(x => x.City)
+            </td>
+            <td>
+                @Html.TextBoxFor(x => x.City)
+            </td>
+                   
+        </tr>
+    </table>
+
+    <input type="submit" value="Add institute" />
+}
+
+--------------------------------------------------------------------------
+delete
+--------------------------------------------------
+@model DbFirstApproachASP.Net.Models.Institute
+
+@{
+    ViewBag.Title = "Deleteinsti";
+}
+
+<h2>Deleteinsti</h2>
+@*@using (Html.BeginForm())
+{
+    @Html.DisplayFor(x => x.City)
+    <br />
+    <input type="submit" value="delete person" />
+}*@
+---------------------------------------------------------------------------
+display all instis
+------------------
+@model IEnumerable< DbFirstApproachASP.Net.Models.Institute>
+
+@{
+    ViewBag.Title = "Displayrest";
+}
+
+<h2>Displayrest</h2>
+
+<table border="1" style="border-color:aquamarine;color:blue ;border-collapse:collapse">
+    <tr>
+        <td>
+            @Html.DisplayNameFor(x => x.InstituteID)
+        </td>
+        <td>
+            @Html.DisplayNameFor(x => x.City)
+        </td>
+    </tr>
+    @foreach (var person in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(x => person.InstituteID)
+            </td>
+            <td>
+                @Html.DisplayFor(x => person.City)
+            </td>
+            <td>
+           
+                @Html.ActionLink("Edit", "Edit", new { id =  person.InstituteID})
+                @Html.ActionLink("Delete", "Deleteinsti", new { id = person.InstituteID })
+                @Html.ActionLink("View Details", "viewInsDet", new { id = person.InstituteID })
+            </td>
+        </tr>
+    }
+</table>
+@Html.ActionLink("Add insti", "CreateInsti")
+--------------------------------------------------------------------------
+edit
+------------------------------
+@model DbFirstApproachASP.Net.Models.Institute
+
+@{
+    ViewBag.Title = "Edit";
+}
+
+<h2>Edit</h2>
+@using (Html.BeginForm())
+{
+    @Html.ActionLink("back to list", "Displayrest")
+    <table border="1">
+        <tr>
+            <td>
+                @Html.DisplayNameFor(x => x.InstituteID)
+            </td>
+            <td>
+                @Html.TextBoxFor(x => x.InstituteID, new { @readonly = true })
+            </td>
+
+        </tr>
+
+
+        <tr>
+            <td>
+                @Html.DisplayNameFor(x => x.City)
+            </td>
+            <td>
+                @Html.TextBoxFor(x => x.City)
+            </td>
+
+        </tr>
+
+    </table>
+
+    <input type="submit" value="update" />
+}
+-------------------------------------------------------------------
+viewall
+---------------------
+@model DbFirstApproachASP.Net.Models.Institute
+
+@{
+    ViewBag.Title = "viewInsDet";
+}
+
+<h2>viewInsDet</h2>
+@using (@Html.BeginForm())
+{
+    @Html.ActionLink("back to list", "Displayrest")
+    <table>
+        <tr>
+            <td>@Html.DisplayNameFor(x => x.InstituteID)</td>
+            <td>@Html.TextBoxFor(x => x.InstituteID, new { @readonly = true })</td>
+        </tr>
+
+        <tr>
+            <td>@Html.DisplayNameFor(x => x.City)</td>
+            <td>@Html.TextBoxFor(x => x.City, new { @readonly = true })</td>
+        </tr>
+       
+    </table>
+   
+}
+

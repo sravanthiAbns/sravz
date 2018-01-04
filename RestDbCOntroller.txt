@@ -1,0 +1,113 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using System.Web.Mvc;
+using DbFirstApproachASP.Net.Models;
+using System.Net;
+
+namespace DbFirstApproachASP.Net.Controllers
+{
+    public class RestDBFirstController : Controller
+    {
+
+        
+
+        trainingEntities1 context = new trainingEntities1();
+       
+        // GET: RestDBFirst
+        // displaying all details
+
+        public ActionResult Displayrest()
+        {
+            return View(context.Institutes.ToList());
+        }
+
+        [HttpGet]
+        // add new institute
+        public ActionResult CreateInsti()
+        {
+                return View();
+        }
+
+        [HttpPost]
+        public ActionResult CreateInsti(Institute ins)
+        {
+            if (ModelState.IsValid)
+            {
+                context.Institutes.Add(ins);
+                context.SaveChanges();
+                return RedirectToAction("Displayrest");
+            }
+            else {
+                return View(); }
+        }
+
+
+        //update institute
+        public ActionResult Edit(int? id)
+        {
+           
+            var result = (from record in context.Institutes
+                          where record.InstituteID == id
+                          select record).FirstOrDefault();
+
+            if (result == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.NotFound);
+            }
+            return View(result);
+        }
+
+        [HttpPost]
+        public ActionResult Edit(Institute i)
+        {
+            
+            if (ModelState.IsValid)
+            {
+                var result = (from record in context.Institutes
+                              where record.InstituteID == i.InstituteID
+                              select record).FirstOrDefault();
+                
+                // result.BikeModel = bike.BikeModel;
+                //  result.YearOfMake = bike.YearOfMake;
+                
+
+                if (result != null)
+                {
+                    //result.InstituteID = i.InstituteID;
+                    result.City = i.City;
+                    context.SaveChanges();        
+                }
+
+            }
+            return RedirectToAction("Displayrest"); ;
+        }
+
+        [HttpGet]
+        public ActionResult Deleteinsti(int? id)
+        {
+            var del = (from act in context.Institutes where act.InstituteID == id select act).FirstOrDefault();
+            //var del = context.Authors.Where(x => x.ActorID == id).FirstOrDefault();
+            context.Institutes.Remove(del);
+            context.SaveChanges();
+            return RedirectToAction("Displayrest");
+
+        }
+
+        [HttpGet]
+        public ActionResult viewInsDet(int? id)
+        {
+            if (id != null)
+            {
+                var result = (from record in context.Institutes
+                              where record.InstituteID == id
+                              select record).FirstOrDefault();
+                return View(result);
+            }
+            return View();
+        }
+
+    }
+
+    }
